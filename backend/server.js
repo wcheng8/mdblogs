@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 
 // bringing in the routes
 const blogRoutes = require("./routes/blog");
+const authRoutes = require("./routes/auth")
 
 //app
 const app = express();
@@ -27,6 +28,7 @@ app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use('/api', blogRoutes);
+app.use('/api', authRoutes);
 
 //cors
 if ((process.env.NODE_ENV = "development")) {
