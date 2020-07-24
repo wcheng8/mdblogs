@@ -18,7 +18,7 @@ exports.signup = (req, res) => {
     newUser.save((err, success) => {
       if (err) {
         return res.status(400).json({
-          error: err,
+          error: "An error occured",
         });
       }
       res.json({
@@ -34,13 +34,13 @@ exports.signin = (req, res) => {
   User.findOne({ email }).exec((err, user) => {
     if (err || !user) {
       return res.status(400).json({
-        error: "That email does not exist"
+        error: "That email does not exist",
       });
     }
     //auth user
     if (!user.authenticate(password)) {
       return res.status(400).json({
-        error: "That email and Password do not match"
+        error: "That email and Password do not match",
       });
     }
     // g a JWT and send
@@ -48,11 +48,11 @@ exports.signin = (req, res) => {
       expiresIn: "1d",
     });
 
-    res.cookie('token', token, { expiresIn: "1d" });
+    res.cookie("token", token, { expiresIn: "1d" });
     const { _id, username, name, email, role } = user;
     return res.json({
       token,
-      user: { _id, username, name, email, role }
+      user: { _id, username, name, email, role },
     });
   });
 };
@@ -60,7 +60,7 @@ exports.signin = (req, res) => {
 exports.signout = (req, res) => {
   res.clearCookie("token");
   res.json({
-    message: "Signout successful"
+    message: "Signout successful",
   });
 };
 
