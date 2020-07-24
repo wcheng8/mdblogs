@@ -76,7 +76,7 @@ userSchema.methods = {
         .update(password)
         .digest("hex");
     } catch (err) {
-      return "";
+      return "Error";
     }
   },
   makeSalt: function () {
