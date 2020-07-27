@@ -44,7 +44,7 @@ export const signout = (next) => {
     mode: "cors"
   })
     .then(response => {
-      console.log("signout seccess");
+      console.log("signout success");
     })
     .catch(error => console.log(error));
 };
@@ -52,7 +52,7 @@ export const signout = (next) => {
 
 export const setCookie = (key, value) => {
   if (process.browser) {
-    setCookie.set(key, value, {
+    cookie.set(key, value, {
       expires: 1
     });
   }

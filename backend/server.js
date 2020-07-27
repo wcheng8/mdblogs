@@ -8,7 +8,8 @@ const mongoose = require("mongoose");
 
 // bringing in the routes
 const blogRoutes = require("./routes/blog");
-const authRoutes = require("./routes/auth")
+const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
 
 //app
 const app = express();
@@ -28,7 +29,7 @@ mongoose
 //   app.use(cors({ origin: `${process.env.CLIENT_URL}` }));
 // };
 
-const allowList = ['http://localhost:3000']
+const allowList = ['http://localhost:3000', `${process.env.CLIENT_URL}`]
 app.use(cors({
   origin: (origin, callback) => {
     const allowListIndex = allowList.findIndex(url => url.includes(origin))
@@ -37,14 +38,13 @@ app.use(cors({
 }));
 
 
-
-
 //middlewares
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use('/api', blogRoutes);
-app.use('/api', authRoutes);
+app.use("/api", blogRoutes);
+app.use("/api", authRoutes);
+app.use("/api", userRoutes);
 
 
 

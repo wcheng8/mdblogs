@@ -1,12 +1,16 @@
 import Layout from "../components/Layout";
-import Link from "next/link";
 import SignupComponent from "../components/auth/SignupComponent";
+import Link from "next/link";
 
 const Signup = () => {
   return (
     <Layout>
-      <h2>Signup page</h2>
-      <SignupComponent />
+      <h2 className="text-center pt-4 pb-6">Signup</h2>
+      <div className="row">
+        <div className="col-md-6 offest-md-3">
+          <SignupComponent />
+        </div>
+      </div>
     </Layout>
   );
 };
