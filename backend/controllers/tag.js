@@ -15,7 +15,7 @@ exports.create = (req, res) => {
                 error: errorHandler(err)
             });
         }
-        res.json(data); // dont do this res.json({ tag: data });
+        res.json(data);
     });
 };
 
