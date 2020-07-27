@@ -1,9 +1,10 @@
 import Layout from "../components/Layout";
+import SigninComponent from "../components/auth/SigninComponent";
 
 const Signin = () => {
   return (
     <Layout>
-      <h2>Signin page</h2>
+      <SigninComponent />
     </Layout>
   );
 };

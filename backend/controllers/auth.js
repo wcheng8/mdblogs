@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const expressJwt = require("express-jwt");
 
 exports.signup = (req, res) => {
-  User.findOne({ email: req.body.email }).exec((err, user) => {
+  User.findOne({ email: req.body.email }).exec((error, user) => {
     if (user) {
       return res.status(400).json({
         error: "Email is taken",
@@ -15,10 +15,10 @@ exports.signup = (req, res) => {
     let profile = `${process.env.CLIENT_URL}/profile/${username}`;
 
     let newUser = new User({ name, email, password, profile, username });
-    newUser.save((err, success) => {
-      if (err) {
+    newUser.save((error, success) => {
+      if (error) {
         return res.status(400).json({
-          error: "An error occured",
+          error: "A problem has occured",
         });
       }
       res.json({

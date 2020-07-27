@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { signup } from "../../actions/auth";
+import { useState, useEffect } from "react";
+import { signup, isAuth } from "../../actions/auth";
+import Router from "next/router";
 
 const SignupComponent = () => {
   const [values, setValues] = useState({
@@ -14,9 +15,13 @@ const SignupComponent = () => {
 
   const { name, email, password, error, loading, message, showForm } = values
 
+  useEffect(() => {
+    isAuth() && Router.push(`/`);
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // This was a test console.table({ name, email, password, error, loading, message, showForm });
+    // console.table({ name, email, password, error, loading, message, showForm });
     setValues({ ...values, loading: true, error: false })
     const user = { name, email, password };
 
@@ -35,12 +40,16 @@ const SignupComponent = () => {
           showForm: false,
         });
       }
-    });
+    })
   };
 
   const handleChange = name => e => {
     setValues({ ...values, error: false, [name]: e.target.value });
   };
+
+  const showLoading = () => (loading ? <div className="alert alert-info"> Loading... </div> : '');
+  const showError = () => (error ? <div className="alert alert-info"> {error} </div> : '');
+  const showMessage = () => (message ? <div className="alert alert-info"> {message} </div> : '');
 
   const signupForm = () => {
     return (
@@ -78,7 +87,12 @@ const SignupComponent = () => {
       </form>
     );
   };
-  return <React.Fragment>{signupForm()}</React.Fragment>;
+  return <React.Fragment>
+    {showError()}
+    {showLoading()}
+    {showMessage()}
+    {showForm && signupForm()}
+  </React.Fragment>;
 };
 
 export default SignupComponent;

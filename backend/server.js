@@ -23,6 +23,22 @@ mongoose
   })
   .then(() => console.log("Database connected"));
 
+//cors
+// if ((process.env.NODE_ENV === "DEVELOPMENT")) {
+//   app.use(cors({ origin: `${process.env.CLIENT_URL}` }));
+// };
+
+const allowList = ['http://localhost:3000']
+app.use(cors({
+  origin: (origin, callback) => {
+    const allowListIndex = allowList.findIndex(url => url.includes(origin))
+    callback(null, allowListIndex > -1)
+  }
+}));
+
+
+
+
 //middlewares
 app.use(morgan("dev"));
 app.use(bodyParser.json());
@@ -30,10 +46,7 @@ app.use(cookieParser());
 app.use('/api', blogRoutes);
 app.use('/api', authRoutes);
 
-//cors
-if ((process.env.NODE_ENV === "DEVELOPMENT")) {
-  app.use(cors({ origin: `${process.env.CLIENT_URL}` }));
-};
+
 
 //port
 const port = process.env.PORT || 8000;

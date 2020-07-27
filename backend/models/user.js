@@ -75,8 +75,8 @@ userSchema.methods = {
         .createHmac("sha1", this.salt)
         .update(password)
         .digest("hex");
-    } catch (err) {
-      return "Error";
+    } catch (error) {
+      return "A problem has occured";
     }
   },
   makeSalt: function () {
