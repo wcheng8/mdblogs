@@ -93,10 +93,10 @@ export const authenticate = (data, next) => {
 
 export const isAuth = () => {
   if (process.browser) {
-    const cookieChecked = getCookie("token")
+    const cookieChecked = getCookie("token");
     if (cookieChecked) {
       if (localStorage.getItem("user")) {
-        return JSON.parse(localStorage.getItem("user"))
+        return JSON.parse(localStorage.getItem("user"));
       } else {
         return false;
       }
