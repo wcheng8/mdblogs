@@ -27,13 +27,10 @@ const Tag = ({ tag, blogs, query }) => {
       <meta property="og:url" content={`${DOMAIN}/categories/${query.slug}`} />
       <meta property="og:site_name" content={`${APP_NAME}`} />
 
-      <meta
-        property="og:image"
-        content={`${DOMAIN}/static/images/seoblog.jpg`}
-      />
+      <meta property="og:image" content={`${DOMAIN}/static/images/blogs.jpg`} />
       <meta
         property="og:image:secure_url"
-        content={`${DOMAIN}/static/images/seoblog.jpg`}
+        content={`${DOMAIN}/static/images/blogs.jpg`}
       />
       <meta property="og:image:type" content="image/jpg" />
       <meta property="fb:app_id" content={`${FB_APP_ID}`} />
