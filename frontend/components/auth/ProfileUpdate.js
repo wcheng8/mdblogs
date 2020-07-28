@@ -145,7 +145,7 @@ const ProfileUpdate = () => {
         />
       </div>
       <div className="form-group">
-        <label className="text-muted">Password</label>
+        <label className="text-muted"> New Password</label>
         <input
           onChange={handleChange("password")}
           type="password"

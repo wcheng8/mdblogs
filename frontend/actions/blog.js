@@ -119,7 +119,6 @@ export const updateBlog = (blog, token, slug) => {
   } else if (isAuth() && isAuth().role === 0) {
     updateBlogEndpoint = `${API}/user/blog/${slug}`;
   }
-
   return fetch(`${updateBlogEndpoint}`, {
     method: "PUT",
     headers: {
