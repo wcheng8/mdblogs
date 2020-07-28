@@ -164,18 +164,18 @@ As a user I want to have an easy and convenient way to post and edit my blogs, s
 
 The letter A, B, C, D, WTF is the priority in which the task should be implemented. A is important to the application while WTF is Hold my Beer.
 
-![1st step trello](docs/TrelloScreenshots/1st-screenshot.png)
+![1st step trello](docs/Trello/1st-screenshot.png)
 
-![2nd step trello](docs/TrelloScreenshots/4th-screenshot.png)
+![2nd step trello](docs/Trello/4th-screenshot.png)
 
-![3rd step trello](docs/TrelloScreenshots/5th-screenshot.png)
+![3rd step trello](docs/Trello/5th-screenshot.png)
 
-![4th step trello](docs/TrelloScreenshots/6th-screenshot.png)
+![4th step trello](docs/Trello/6th-screenshot.png)
 
-![5th step trello](docs/TrelloScreenshots/7th-screenshot.png)
+![5th step trello](docs/Trello/7th-screenshot.png)
 
-![6th step trello](docs/TrelloScreenshots/8th-screenshot.png)
+![6th step trello](docs/Trello/8th-screenshot.png)
 
-![7th step trello](docs/TrelloScreenshots/9th-screenshot.png)
+![7th step trello](docs/Trello/9th-screenshot.png)
 
-![7th step trello](docs/TrelloScreenshots/10th-screenshot.png)
+![7th step trello](docs/Trello/10th-screenshot.png)
