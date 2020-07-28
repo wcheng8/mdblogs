@@ -172,8 +172,10 @@ The letter A, B, C, D, WTF is the priority in which the task should be implement
 
 ![4th step trello](docs/TrelloScreenshots/6th-screenshot.png)
 
-![5th step trello]()
+![5th step trello](docs/TrelloScreenshots/7th-screenshot.png)
 
-![6th step trello]()
+![6th step trello](docs/TrelloScreenshots/8th-screenshot.png)
 
-![7th step trello]()
+![7th step trello](docs/TrelloScreenshots/9th-screenshot.png)
+
+![7th step trello](docs/TrelloScreenshots/10th-screenshot.png)
