@@ -3,16 +3,14 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-require("dotenv").config();
 const mongoose = require("mongoose");
-
-// bringing in the routes
+require("dotenv").config();
+// bring routes
 const blogRoutes = require("./routes/blog");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const categoryRoutes = require("./routes/category");
 const tagRoutes = require("./routes/tag");
-
 
 //app
 const app = express();
@@ -32,14 +30,15 @@ mongoose
 //   app.use(cors({ origin: `${process.env.CLIENT_URL}` }));
 // };
 
-const allowList = ['http://localhost:3000', `${process.env.CLIENT_URL}`]
-app.use(cors({
-  origin: (origin, callback) => {
-    const allowListIndex = allowList.findIndex(url => url.includes(origin))
-    callback(null, allowListIndex > -1)
-  }
-}));
-
+const allowList = ["http://localhost:3000", `${process.env.CLIENT_URL}`];
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      const allowListIndex = allowList.findIndex((url) => url.includes(origin));
+      callback(null, allowListIndex > -1);
+    },
+  })
+);
 
 //middlewares
 app.use(morgan("dev"));
@@ -50,8 +49,6 @@ app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", tagRoutes);
-
-
 
 //port
 const port = process.env.PORT || 8000;

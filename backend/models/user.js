@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
-      max: 30,
+      max: 32,
       unique: true,
       index: true,
       lowercase: true,
@@ -16,14 +16,14 @@ const userSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
-      max: 30,
+      max: 32,
     },
     email: {
       type: String,
       trim: true,
       required: true,
       unique: true,
-      lowerCase: true,
+      lowercase: true,
     },
     profile: {
       type: String,
@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: Number,
-      default: 0
+      default: 0,
     },
     photo: {
       data: Buffer,
@@ -56,13 +56,13 @@ const userSchema = new mongoose.Schema(
 userSchema
   .virtual("password")
   .set(function (password) {
+    // create a temporarity variable called _password
     this._password = password;
-
+    // generate salt
     this.salt = this.makeSalt();
-
+    // encryptPassword
     this.hashed_password = this.encryptPassword(password);
   })
-
   .get(function () {
     return this._password;
   });
@@ -79,10 +79,11 @@ userSchema.methods = {
         .createHmac("sha1", this.salt)
         .update(password)
         .digest("hex");
-    } catch (error) {
-      return "A problem has occured";
+    } catch (err) {
+      return "";
     }
   },
+
   makeSalt: function () {
     return Math.round(new Date().valueOf() * Math.random()) + "";
   },

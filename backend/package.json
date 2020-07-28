@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^7.2.2",
     "body-parser": "^1.4.4",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
@@ -24,7 +25,7 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.4",
     "shortid": "^2.2.15",
-    "slugify": "^1.4.4",
+    "slugify": "^1.4.5",
     "string-strip-html": "^4.5.0"
   }
 }
