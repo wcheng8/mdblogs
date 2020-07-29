@@ -4,11 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "cypress:open": "cypress open",
-    "client": "cd ../frontend && npm run dev ",
-    "dev": "concurrently \"npm run start\" \"npm run client\"",
-    "client-install": "cd .. && cd frontend && npm install"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
