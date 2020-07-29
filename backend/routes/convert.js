@@ -42,6 +42,7 @@ var s3 = new AWS.S3();
 // 			}
 // 		})();
 // 	});
+// res.send(`https://mdstoragenew.s3.amazonaws.com/folder/${blogid}.pdf`)
 // });
 
 // Without Call Test
@@ -81,7 +82,7 @@ const uploadFile = (filePath) => {
 	let params = {
 		Bucket: "mdstoragenew",
 		Body: fs.createReadStream(filePath),
-		Key: "folder/" + Date.now() + "_" + path.basename(filePath),
+		Key: "folder/" + path.basename(filePath),
 		ACL: "public-read",
 	};
 
