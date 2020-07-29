@@ -7,7 +7,8 @@ export const QuillModules = {
     ["link", "image", "video"],
     ["clean"],
     ["code-block"],
-  ],
+    ["markdown"],
+  ], 
 };
 
 export const QuillFormats = [

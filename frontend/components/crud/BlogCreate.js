@@ -209,8 +209,8 @@ const CreateBlog = ({ router }) => {
 
         <div className="form-group">
           <ReactQuill
-            modules={QuillModules}
-            formats={QuillFormats}
+            modules={(QuillModules)}
+            formats={(QuillFormats)}
             value={body}
             placeholder="Write something amazing..."
             onChange={handleBody}
