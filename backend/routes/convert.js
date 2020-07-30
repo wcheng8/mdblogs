@@ -14,36 +14,42 @@ AWS.config.update({
 var s3 = new AWS.S3();
 
 // Convert to pdf
-// app.get("/pdf/:blogId", async (req, res) => {
-// 	return await Blog.findById(req.params.blogId).then((blog) => {
-// 		if (!blog) {
-// 			return res.status(404).send({
-// 				message: "Note not found with id " + req.params.blogId,
-// 			});
-// 		}
-// 		console.log(blog.body);
-// 		res.send(blog);
+app.get("/pdf/blog/:slug", (req, res) => {
+	const slug = req.params.slug.toLowerCase();
+	Blog.findOne({ slug })
+		// .select("-photo")
+		.populate("categories", "_id name slug")
+		.populate("tags", "_id name slug")
+		.populate("postedBy", "_id name username")
+		.select(
+			"_id title body slug mtitle mdesc categories tags postedBy createdAt updatedAt"
+		)
+		.exec((err, data) => {
+			if (err) {
+				return res.json({
+					error: errorHandler(err),
+				});
+			}
+			res.json(data);
+		});
 
-// 		fs.writeFile(`${blog.id}.md`, blog.content, (err) => {
-// 			// throws an error, you could also catch it here
-// 			if (err) throw err;
+	fs.writeFile(`${blog.id}.md`, blog.content, (err) => {
+		// throws an error, you could also catch it here
+		if (err) throw err;
 
-// 			// success case, the file was saved
-// 			console.log("Note saved!");
-// 		});
+		// success case, the file was saved
+		console.log("Note saved!");
+	});
 
-// 		(async () => {
-// 			const pdf = await mdToPdf({ path: `./${blog.id}.md` }).catch(
-// 				console.error
-// 			);
-// 			if (pdf) {
-// 				fs.writeFileSync(`${blog.id}.pdf`, pdf.content);
-// 				uploadFile(`./${blog.id}.pdf`);
-// 			}
-// 		})();
-// 	});
-// res.send(`https://mdstoragenew.s3.amazonaws.com/folder/${blogid}.pdf`)
-// });
+	(async () => {
+		const pdf = await mdToPdf({ path: `./${blog.id}.md` }).catch(console.error);
+		if (pdf) {
+			fs.writeFileSync(`${blog.id}.pdf`, pdf.content);
+			uploadFile(`./${blog.id}.pdf`);
+		}
+	})();
+	res.send(`https://mdstoragenew.s3.amazonaws.com/folder/${blogid}.pdf`);
+});
 
 // Without Call Test
 
