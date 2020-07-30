@@ -3,7 +3,7 @@ import renderHTML from "react-render-html";
 import moment from "moment";
 import { API } from "../../config";
 import TurndownService from "turndown";
-import ReactMarkdown from "react-markdown/with-html";
+import ReactMarkdown from "react-markdown";
 
 const Card = ({ blog }) => {
 	var turndownService = new TurndownService();
@@ -60,9 +60,9 @@ const Card = ({ blog }) => {
 				<div className="col-md-8">
 					<section>
 						<div className="pb-3">
-							<ReactMarkdown source={turndownService.turndown(blog.excerpt)} />
+							<ReactMarkdown source={blog.excerpt} />
 						</div>
-						<div className="pb-3">{renderHTML(blog.excerpt)}</div>
+						{/* <div className="pb-3">{renderHTML(blog.excerpt)}</div> */}
 						{/* <div className="pb-3">{turndownService.turndown(blog.excerpt)}</div> */}
 						<Link href={`/blogs/${blog.slug}`}>
 							<a className="btn btn-primary pt-2">Read more</a>

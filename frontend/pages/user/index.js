@@ -23,19 +23,6 @@ const UserIndex = () => {
 									</Link>
 								</li>
 
-<<<<<<< HEAD
-                <li className="list-group-item">
-                  <a href="/user/update">Update profile</a>
-                </li>
-              </ul>
-            </div>
-            <div className="col-md-8"></div>
-          </div>
-        </div>
-      </Private>
-    </Layout>
-  );
-=======
 								<li className="list-group-item">
 									<a href="/user/update">Update profile</a>
 								</li>
@@ -46,7 +33,6 @@ const UserIndex = () => {
 			</Private>
 		</Layout>
 	);
->>>>>>> mdconvert
 };
 
 export default UserIndex;
