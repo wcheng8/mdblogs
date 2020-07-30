@@ -133,7 +133,6 @@
       "static/css/static/3BXHc0cjWqqx8xrzEBfcn/pages/profile/[username].js.de0b7581.chunk.css",
       "static/runtime/main-b349ce13d61987b9acd0.js"
     ],
-<<<<<<< HEAD
     "/signin": [
       "static/runtime/webpack-eb3c3d7f303b72ec46d6.js",
       "static/chunks/framework.5c572077173ab3a13521.js",
@@ -207,19 +206,6 @@
       "static/chunks/ce5db293aa4f189a360c157ac6ff8920d0b0fd87.298371e2af8a248b7ae3.js",
       "static/css/static/3BXHc0cjWqqx8xrzEBfcn/pages/user/update.js.de0b7581.chunk.css",
       "static/runtime/main-b349ce13d61987b9acd0.js"
-=======
-    "/blogs/[slug]": [
-      "static/runtime/webpack.js",
-      "static/css/styles.chunk.css",
-      "static/chunks/styles.js",
-      "static/runtime/main.js"
-    ],
-    "/user/crud/[slug]": [
-      "static/runtime/webpack.js",
-      "static/css/styles.chunk.css",
-      "static/chunks/styles.js",
-      "static/runtime/main.js"
->>>>>>> convert
     ]
   }
 }
