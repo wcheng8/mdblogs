@@ -13,75 +13,40 @@ AWS.config.update({
 });
 var s3 = new AWS.S3();
 
-// Convert to pdf
-app.get("/pdf/blog/:slug", (req, res) => {
-	const slug = req.params.slug.toLowerCase();
-	Blog.findOne({ slug })
-		// .select("-photo")
-		.populate("categories", "_id name slug")
-		.populate("tags", "_id name slug")
-		.populate("postedBy", "_id name username")
-		.select(
-			"_id title body slug mtitle mdesc categories tags postedBy createdAt updatedAt"
-		)
-		.exec((err, data) => {
-			if (err) {
-				return res.json({
-					error: errorHandler(err),
-				});
-			}
-			res.json(data);
+app.get("/pdf/convert/:slug", function (req, res) {
+	const slug = req.params.slug;
+	Blog.findOne({ slug }).exec((err, data) => {
+		if (err) {
+			return res.json({
+				error: errorHandler(err),
+			});
+		}
+		// res.json(data.body);
+		console.log(data._id);
+		// Converting the file and upload to AWS
+		fs.writeFile(`${data._id}.md`, data.body, (err) => {
+			// throws an error, you could also catch it here
+			if (err) throw err;
+
+			// success case, the file was saved
+			console.log("Note saved!");
 		});
 
-	fs.writeFile(`${blog.id}.md`, blog.content, (err) => {
-		// throws an error, you could also catch it here
-		if (err) throw err;
-
-		// success case, the file was saved
-		console.log("Note saved!");
+		(async () => {
+			const pdf = await mdToPdf({ path: `./${data._id}.md` }).catch(
+				console.error
+			);
+			if (pdf) {
+				fs.writeFileSync(`${data._id}.pdf`, pdf.content);
+				uploadFile(`./${data._id}.pdf`);
+			}
+		})();
+		console.log(data.body);
+		res.send(
+			`Converted and saved to : https://mdstoragenew.s3.amazonaws.com/folder/${data._id}.pdf`
+		);
 	});
-
-	(async () => {
-		const pdf = await mdToPdf({ path: `./${blog.id}.md` }).catch(console.error);
-		if (pdf) {
-			fs.writeFileSync(`${blog.id}.pdf`, pdf.content);
-			uploadFile(`./${blog.id}.pdf`);
-		}
-	})();
-	res.send(`https://mdstoragenew.s3.amazonaws.com/folder/${blogid}.pdf`);
 });
-
-// Without Call Test
-
-fs.writeFile(`hihi.md`, "# h1 ## h2 ### h3", (err) => {
-	// throws an error, you could also catch it here
-	if (err) throw err;
-
-	// success case, the file was saved
-	console.log("Note saved!");
-});
-
-fs.writeFile(`hihi.md`, "# h1 ## h2 ### h3", (err) => {
-	// throws an error, you could also catch it here
-	if (err) throw err;
-
-	// success case, the file was saved
-	console.log("Note saved!");
-});
-
-(async () => {
-	const pdf = await mdToPdf({ path: `./hihi.md` }).catch(console.error);
-	if (pdf) {
-		fs.writeFileSync(`hihi.pdf`, pdf.content);
-		uploadFile(`./hihi.pdf`);
-	}
-})();
-
-// Convert to doc
-// app.get("/pdf", notes.convertPdf);
-
-// Convert to docx
-// app.get("/pdf", notes.convertPdf);
 
 // Uploading file to AWS
 const uploadFile = (filePath) => {
@@ -104,5 +69,19 @@ const uploadFile = (filePath) => {
 		}
 	});
 };
+
+app.get("/pdf/get/:slug", function (req, res) {
+	const slug = req.params.slug;
+	Blog.findOne({ slug }).exec((err, data) => {
+		if (err) {
+			return res.json({
+				error: errorHandler(err),
+			});
+		}
+		// res.json(data.body);
+		console.log(data._id);
+		res.send(`https://mdstoragenew.s3.amazonaws.com/folder/${data._id}.pdf`);
+	});
+});
 
 module.exports = app;

@@ -13,17 +13,17 @@ import { QuillModules, QuillFormats } from "../../helpers/quill";
 import MDbriefsheet from "../blog/MDBriefsheet";
 
 const CreateBlog = ({ router }) => {
-	const blogFromLS = () => {
-		if (typeof window === "undefined") {
-			return false;
-		}
+	// const blogFromLS = () => {
+	// 	if (typeof window === "undefined") {
+	// 		return false;
+	// 	}
 
-		if (localStorage.getItem("blog")) {
-			return JSON.parse(localStorage.getItem("blog"));
-		} else {
-			return false;
-		}
-	};
+	// if (localStorage.getItem("blog")) {
+	// 	return JSON.parse(localStorage.getItem("blog"));
+	// } else {
+	// 	return false;
+	// }
+	// };
 
 	const [categories, setCategories] = useState([]);
 	const [tags, setTags] = useState([]);
@@ -31,7 +31,6 @@ const CreateBlog = ({ router }) => {
 	const [checked, setChecked] = useState([]); // categories
 	const [checkedTag, setCheckedTag] = useState([]); // tags
 
-	const [body, setBody] = useState(blogFromLS());
 	const [values, setValues] = useState({
 		error: "",
 		sizeError: "",
@@ -47,6 +46,7 @@ const CreateBlog = ({ router }) => {
 		success,
 		formData,
 		title,
+		body,
 		hidePublishButton,
 	} = values;
 	const token = getCookie("token");
@@ -87,10 +87,10 @@ const CreateBlog = ({ router }) => {
 				setValues({
 					...values,
 					title: "",
+					body: "",
 					error: "",
 					success: `A new blog titled "${data.title}" is created`,
 				});
-				setBody("");
 				setCategories([]);
 				setTags([]);
 			}
@@ -104,12 +104,15 @@ const CreateBlog = ({ router }) => {
 		setValues({ ...values, [name]: value, formData, error: "" });
 	};
 
+<<<<<<< HEAD
 	const handleBody = (e) => {
 		console.log(e);
 		setBody(e);
 		formData.set("body", e);
 	};
 
+=======
+>>>>>>> convert
 	const handleToggle = (c) => () => {
 		setValues({ ...values, error: "" });
 		// return the first index or -1
@@ -211,13 +214,23 @@ const CreateBlog = ({ router }) => {
 				</div>
 
 				<div className="form-group">
+<<<<<<< HEAD
 					<ReactQuill
+=======
+					<textarea
+						style={{ height: 700 }}
+						className="form-control"
+						value={body}
+						onChange={handleChange("body")}
+					/>
+					{/* <ReactQuill
+>>>>>>> convert
 						modules={QuillModules}
 						formats={QuillFormats}
 						value={body}
 						placeholder="Write something amazing..."
 						onChange={handleBody}
-					/>
+					/> */}
 				</div>
 
 				<div>
