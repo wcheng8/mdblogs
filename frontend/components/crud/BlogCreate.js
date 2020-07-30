@@ -98,29 +98,16 @@ const CreateBlog = ({ router }) => {
 	};
 
 	const handleChange = (name) => (e) => {
-<<<<<<< HEAD
-		console.log(e.target.value);
-=======
 		// console.log(e.target.value);
->>>>>>> mdconvert
 		const value = name === "photo" ? e.target.files[0] : e.target.value;
 		formData.set(name, value);
 		setValues({ ...values, [name]: value, formData, error: "" });
 	};
 
 	const handleBody = (e) => {
-<<<<<<< HEAD
 		console.log(e);
 		setBody(e);
 		formData.set("body", e);
-=======
-		// console.log(e);
-		setBody(e);
-		formData.set("body", e);
-		if (typeof window !== "undefined") {
-			localStorage.setItem("blog", JSON.stringify(e));
-		}
->>>>>>> mdconvert
 	};
 
 	const handleToggle = (c) => () => {
@@ -209,16 +196,12 @@ const CreateBlog = ({ router }) => {
 		return (
 			<form onSubmit={publishBlog}>
 				<div className="form-group">
-<<<<<<< HEAD
-					<label className="text-muted">Title</label>
-=======
 					<div className="row ">
 						<label className="text-muted col-8 pt-1 h3">Title</label>
 						<div className="col-4">
 							<MDbriefsheet />
 						</div>
 					</div>
->>>>>>> mdconvert
 					<input
 						type="text"
 						className="form-control"
@@ -228,20 +211,7 @@ const CreateBlog = ({ router }) => {
 				</div>
 
 				<div className="form-group">
-<<<<<<< HEAD
-					{/* <label className="text-muted">Title</label>
-					<input
-						type="text"
-						className="form-control"
-						placeholder="Write something amazing..."
-						value={body}
-						onChange={handleBody}
-					/> */}
 					<ReactQuill
-						theme="snow"
-=======
-					<ReactQuill
->>>>>>> mdconvert
 						modules={QuillModules}
 						formats={QuillFormats}
 						value={body}
