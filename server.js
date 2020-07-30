@@ -12,13 +12,14 @@ const userRoutes = require("./routes/user");
 const categoryRoutes = require("./routes/category");
 const tagRoutes = require("./routes/tag");
 const convertRoutes = require("./routes/convert");
+const path = require("path");
 
 // app
 const app = express();
 
 // db
 mongoose
-	.connect(process.env.DATABASE, {
+	.connect(process.env.MONGODB_URI || process.env.DATABASE, {
 		useNewUrlParser: true,
 		useCreateIndex: true,
 		useFindAndModify: false,
@@ -55,6 +56,10 @@ app.use("/api", userRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", tagRoutes);
 app.use("/api", convertRoutes);
+
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static("frontend/.next"));
+}
 
 // port
 const port = process.env.PORT || 8000;
