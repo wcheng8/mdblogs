@@ -42,9 +42,7 @@ app.get("/pdf/convert/:slug", function (req, res) {
 			}
 		})();
 		console.log(data.body);
-		res.send(
-			`Converted and saved to : https://mdstoragenew.s3.amazonaws.com/folder/${data._id}.pdf`
-		);
+		res.send(data._id);
 	});
 });
 

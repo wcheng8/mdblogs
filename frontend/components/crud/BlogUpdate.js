@@ -7,14 +7,15 @@ import { getCategories } from "../../actions/category";
 import { getTags } from "../../actions/tag";
 import { singleBlog, updateBlog } from "../../actions/blog";
 import { API } from "../../config";
+import axios from "axios";
 
 const BlogUpdate = ({ router }) => {
 	const [categories, setCategories] = useState([]);
 	const [tags, setTags] = useState([]);
-
+	const [blogId, setblogId] = useState("");
 	const [checked, setChecked] = useState([]); // categories
 	const [checkedTag, setCheckedTag] = useState([]); // tags
-
+	const [request, setRequest] = useState(false);
 	const [values, setValues] = useState({
 		title: "",
 		error: "",
@@ -24,7 +25,6 @@ const BlogUpdate = ({ router }) => {
 		title: "",
 		body: "",
 	});
-
 	const { error, success, formData, title, body } = values;
 	const token = getCookie("token");
 
@@ -177,11 +177,6 @@ const BlogUpdate = ({ router }) => {
 		setValues({ ...values, [name]: value, formData, error: "" });
 	};
 
-	// const handleBody = (e) => {
-	// 	setBody(e);
-	// 	formData.set("body", e);
-	// };
-
 	const editBlog = (e) => {
 		e.preventDefault();
 		updateBlog(formData, token, router.query.slug).then((data) => {
@@ -193,6 +188,7 @@ const BlogUpdate = ({ router }) => {
 					title: "",
 					success: `Blog titled "${data.title}" is successfully updated`,
 				});
+				setRequest(false);
 				if (isAuth() && isAuth().role === 1) {
 					// Router.replace(`/admin/crud/${router.query.slug}`);
 					Router.replace(`/admin`);
@@ -222,35 +218,50 @@ const BlogUpdate = ({ router }) => {
 		</div>
 	);
 
+	const convertPdf = () => {
+		axios.get(`${API}/pdf/convert/${router.query.slug}`).then((res, err) => {
+			console.log(res);
+			setRequest(true);
+			setblogId(res.data);
+		});
+	};
+
 	const updateBlogForm = () => {
 		return (
-			<form onSubmit={editBlog}>
-				<div className="form-group">
-					<label className="text-muted">Title</label>
-					<input
-						type="text"
-						className="form-control"
-						value={title}
-						onChange={handleChange("title")}
-					/>
-				</div>
+			<>
+				<form onSubmit={editBlog}>
+					<div className="form-group">
+						<label className="text-muted">Title</label>
+						<input
+							type="text"
+							className="form-control"
+							value={title}
+							onChange={handleChange("title")}
+						/>
+					</div>
 
-				<div className="form-group">
-					<textarea
-						style={{ height: 700 }}
-						className="form-control"
-						value={body}
-						placeholder="Write something amazing..."
-						onChange={handleChange("body")}
-					/>
-				</div>
+					<div className="form-group">
+						<textarea
+							style={{ height: 700 }}
+							className="form-control"
+							value={body}
+							placeholder="Write something amazing..."
+							onChange={handleChange("body")}
+						/>
+					</div>
 
-				<div>
-					<button type="submit" className="btn btn-primary">
-						Update
+					<div className="col-4">
+						<button type="submit" className="btn btn-primary">
+							Update
+						</button>
+					</div>
+				</form>
+				<div className="pt-1 col-4">
+					<button className="btn btn-warning" onClick={convertPdf}>
+						Convert to Pdf
 					</button>
 				</div>
-			</form>
+			</>
 		);
 	};
 
@@ -258,6 +269,31 @@ const BlogUpdate = ({ router }) => {
 		<div className="container-fluid pb-5">
 			<div className="row">
 				<div className="col-md-8">
+					{request && (
+						<div
+							className="alert alert-warning d-flex justify-content-between"
+							role="alert"
+						>
+							<div className="pt-2">
+								The pdf download{" "}
+								<a
+									href={`https://mdstoragenew.s3.ap-southeast-2.amazonaws.com/folder/${blogId}.pdf`}
+									class="alert-link"
+								>
+									link
+								</a>{" "}
+								is here. Give it a click if you like.
+							</div>
+							<button
+								className="btn btn-danger ml-5"
+								onClick={() => {
+									setRequest(false);
+								}}
+							>
+								X
+							</button>
+						</div>
+					)}
 					{updateBlogForm()}
 
 					<div className="pt-3">
