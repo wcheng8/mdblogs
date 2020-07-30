@@ -1,28 +1,27 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import Router from "next/router";
-import dynamic from "next/dynamic";
 import { withRouter } from "next/router";
 import { getCookie, isAuth } from "../../actions/auth";
 import { getCategories } from "../../actions/category";
 import { getTags } from "../../actions/tag";
 import { createBlog } from "../../actions/blog";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-import "../../node_modules/react-quill/dist/quill.snow.css";
-import { QuillModules, QuillFormats } from "../../helpers/quill";
+
+
+
 
 const CreateBlog = ({ router }) => {
-  const blogFromLS = () => {
-    if (typeof window === "undefined") {
-      return false;
-    }
+  // const blogFromLS = () => {
+  //   if (typeof window === "undefined") {
+  //     return false;
+  //   }
 
-    if (localStorage.getItem("blog")) {
-      return JSON.parse(localStorage.getItem("blog"));
-    } else {
-      return false;
-    }
-  };
+  //   if (localStorage.getItem("blog")) {
+  //     return JSON.parse(localStorage.getItem("blog"));
+  //   } else {
+  //     return false;
+  //   }
+  // };
 
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
@@ -30,13 +29,14 @@ const CreateBlog = ({ router }) => {
   const [checked, setChecked] = useState([]); // categories
   const [checkedTag, setCheckedTag] = useState([]); // tags
 
-  const [body, setBody] = useState(blogFromLS());
+  // const [body, setBody] = useState("");
   const [values, setValues] = useState({
     error: "",
     sizeError: "",
     success: "",
     formData: "",
     title: "",
+    body: "",
     hidePublishButton: false,
   });
 
@@ -46,6 +46,7 @@ const CreateBlog = ({ router }) => {
     success,
     formData,
     title,
+    body,
     hidePublishButton,
   } = values;
   const token = getCookie("token");
@@ -85,11 +86,11 @@ const CreateBlog = ({ router }) => {
       } else {
         setValues({
           ...values,
+          body: "",
           title: "",
           error: "",
           success: `A new blog titled "${data.title}" is created`,
         });
-        setBody("");
         setCategories([]);
         setTags([]);
       }
@@ -103,14 +104,14 @@ const CreateBlog = ({ router }) => {
     setValues({ ...values, [name]: value, formData, error: "" });
   };
 
-  const handleBody = (e) => {
-    // console.log(e);
-    setBody(e);
-    formData.set("body", e);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("blog", JSON.stringify(e));
-    }
-  };
+  // const handleBody = (e) => {
+  //   // console.log(e);
+  //   setBody(e);
+  //   formData.set("body", e);
+  //   // if (typeof window !== "undefined") {
+  //   //   localStorage.setItem("blog", JSON.stringify(e));
+  //   // }
+  // };
 
   const handleToggle = (c) => () => {
     setValues({ ...values, error: "" });
@@ -194,6 +195,7 @@ const CreateBlog = ({ router }) => {
     </div>
   );
 
+
   const createBlogForm = () => {
     return (
       <form onSubmit={publishBlog}>
@@ -206,16 +208,17 @@ const CreateBlog = ({ router }) => {
             onChange={handleChange("title")}
           />
         </div>
-
-        <div className="form-group">
-          <ReactQuill
-            modules={(QuillModules)}
-            formats={(QuillFormats)}
-            value={body}
-            placeholder="Write something amazing..."
-            onChange={handleBody}
-          />
-        </div>
+        <form onSubmit={publishBlog}>
+          <div className="form-group">
+            <label className="text-muted">Title</label>
+            <textarea
+              type="body"
+              className="form-control"
+              value={body}
+              onChange={handleChange("body")}
+            />
+          </div>
+        </form>
 
         <div>
           <button type="submit" className="btn btn-primary">

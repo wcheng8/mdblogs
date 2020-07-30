@@ -16,7 +16,7 @@ const blogSchema = new mongoose.Schema(
       index: true,
     },
     body: {
-      type: {},
+      type: String,
       required: true,
       min: 100,
       max: 2000000,
