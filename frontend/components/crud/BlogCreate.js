@@ -6,9 +6,9 @@ import { getCookie, isAuth } from "../../actions/auth";
 import { getCategories } from "../../actions/category";
 import { getTags } from "../../actions/tag";
 import { createBlog } from "../../actions/blog";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+// const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "../../node_modules/react-quill/dist/quill.snow.css";
-import { QuillModules, QuillFormats } from "../../helpers/quill";
+// import { QuillModules, QuillFormats } from "../../helpers/quill";
 import MDbriefsheet from "../blog/MDBriefsheet";
 
 const CreateBlog = ({ router }) => {
@@ -103,15 +103,12 @@ const CreateBlog = ({ router }) => {
 		setValues({ ...values, [name]: value, formData, error: "" });
 	};
 
-<<<<<<< HEAD
 	const handleBody = (e) => {
 		console.log(e);
 		setBody(e);
 		formData.set("body", e);
 	};
 
-=======
->>>>>>> convert
 	const handleToggle = (c) => () => {
 		setValues({ ...values, error: "" });
 		// return the first index or -1
@@ -213,9 +210,6 @@ const CreateBlog = ({ router }) => {
 				</div>
 
 				<div className="form-group">
-<<<<<<< HEAD
-					<ReactQuill
-=======
 					<textarea
 						style={{ height: 700 }}
 						className="form-control"
@@ -223,7 +217,6 @@ const CreateBlog = ({ router }) => {
 						onChange={handleChange("body")}
 					/>
 					{/* <ReactQuill
->>>>>>> convert
 						modules={QuillModules}
 						formats={QuillFormats}
 						value={body}
