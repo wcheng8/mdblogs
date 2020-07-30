@@ -9,8 +9,6 @@ import { singleBlog, updateBlog } from "../../actions/blog";
 import { API } from "../../config";
 
 const BlogUpdate = ({ router }) => {
-	// const [body, setBody] = useState("");
-
 	const [categories, setCategories] = useState([]);
 	const [tags, setTags] = useState([]);
 
