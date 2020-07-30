@@ -20,7 +20,7 @@
     "/_polyfills": [
       "static/runtime/polyfills.js"
     ],
-    "/blogs": [
+    "/about": [
       "static/runtime/webpack.js",
       "static/css/styles.chunk.css",
       "static/chunks/styles.js",
